@@ -7,7 +7,7 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 
 # Using Vercel's temporary directory for uploads
 UPLOAD_FOLDER = '/tmp/uploads/'
-RESULTS_FOLDER = 'static/results/'
+RESULTS_FOLDER = '/tmp/results/'
 
 # Ensure that the results folder exists
 os.makedirs(RESULTS_FOLDER, exist_ok=True)
