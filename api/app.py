@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 
 # Define both static and template folders
-app = Flask(__name__, static_folder='../static', template_folder='../templates')
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 # Define folder paths
 UPLOAD_FOLDER = 'static/uploads/'
