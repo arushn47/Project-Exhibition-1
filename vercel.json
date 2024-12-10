@@ -1,49 +1,26 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "api/app.py",
-        "use": "@vercel/python"
-      },
-      {
-        "src": "static/**",
-        "use": "@vercel/static"
-      },
-      {
-        "src": "templates/**",
-        "use": "@vercel/static"
-      },
-      {
-        "src": "assets/**",
-        "use": "@vercel/static"
-      }
-    ],
-    
-    "routes": [
-      {
-        "src": "/api/(.*)",
-        "dest": "api/app.py"
-      },
-      {
-        "src": "/static/(.*)",
-        "dest": "/static/$1"
-      },
-      {
-        "src": "/templates/(.*)",
-        "dest": "/templates/$1"
-      },
-      {
-        "src": "/assets/(.*)",
-        "dest": "/assets/$1"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "api/app.py"
-      }
-    ],
-
-    "env": {
-      "PYTHON_VERSION": "3.10"
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/app.py",
+      "use": "@vercel/python"
     }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/api/static/$1"
+    },
+    {
+      "src": "/templates/(.*)",
+      "dest": "/api/templates/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "api/app.py"
+    }
+  ],
+  "env": {
+    "PYTHON_VERSION": "3.10"
+  }
 }
-  
