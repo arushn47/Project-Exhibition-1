@@ -9,7 +9,7 @@
 
     <title>SustainHub - AI Driven Tree Detection and Count</title>
 
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -56,17 +56,16 @@
     </section>
 
     <section id="upload">
-        <h1 class="heading">Upload Image</h1>
-        <form action="/" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" accept="image/*" required />
-            <button type="submit">Detect Trees</button>
+        <h1>Upload an Image</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" required>
+            <button type="submit">Upload</button>
         </form>
-        {% if result %}
-        <h2>Result: {{ result }}</h2>
-        {% endif %}
+
         {% if image_path %}
-        <img src="{{ image_path }}" alt="Detected Trees" width="80%" />
+            <img src="{{ url_for('static', filename=image_path) }}" alt="Detected Trees">
         {% endif %}
+
     </section>
     
 
@@ -75,27 +74,27 @@
         <div class="team-page">
             <div class="team-container">
                 <div class="team-member">
-                    <div class="profile-pic"><img src="/assets/members/arush.jpg"></div>
+                    <div class="profile-pic"><img src="{{ url_for('static', filename='members/arush.jpg') }}" alt="Arush"></div>
                     <div class="name">Arush Nandakumar Menon</div>
                     <div class="role">.</div>
                 </div>
                 <div class="team-member">
-                    <div class="profile-pic"><img src="/assets/members/arush.jpg"></div>
+                    <div class="profile-pic"><img src="{{ url_for('static', filename='members/arush.jpg') }}" alt="Arush"></div>
                     <div class="name">Harsh Patel</div>
                     <div class="role">.</div>
                 </div>
                 <div class="team-member">
-                    <div class="profile-pic"><img src="/assets/members/arush.jpg"></div>
+                    <div class="profile-pic"><img src="{{ url_for('static', filename='members/arush.jpg') }}" alt="Arush"></div>
                     <div class="name">Pranav</div>
                     <div class="role">.</div>
                 </div>
                 <div class="team-member">
-                    <div class="profile-pic"><img src="/assets/members/arush.jpg"></div>
+                    <div class="profile-pic"><img src="{{ url_for('static', filename='members/arush.jpg') }}" alt="Arush"></div>
                     <div class="name">Shriyash</div>
                     <div class="role">.</div>
                 </div>
                 <div class="team-member">
-                    <div class="profile-pic"><img src="/assets/members/arush.jpg"></div>
+                    <div class="profile-pic"><img src="{{ url_for('static', filename='members/arush.jpg') }}" alt="Arush"></div>
                     <div class="name">Jigyasa</div>
                     <div class="role">.</div>
                 </div>

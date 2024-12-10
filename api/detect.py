@@ -1,8 +1,9 @@
 from deepforest import main
-import matplotlib.pyplot as plt
 import cv2
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw
+import os
+import matplotlib as plt
 
 # Initialize DeepForest model
 model = main.deepforest()
@@ -12,6 +13,10 @@ def detect_trees(file):
     try:
         # Convert uploaded file to an image array
         image = np.array(Image.open(file))
+
+        # Check if image is loaded
+        if image is None:
+            raise ValueError("Image could not be loaded")
 
         # Convert image to RGB
         image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -30,8 +35,15 @@ def detect_trees(file):
             x_min, y_min, x_max, y_max = prediction['bbox']
             plt.gca().add_patch(plt.Rectangle((x_min, y_min), x_max - x_min, y_max - y_min, 
                                               linewidth=2, edgecolor='r', facecolor='none'))
+        
+        # Convert the image back to BGR format for saving
         plt.imshow(image_rgb)
-        output_path = "static/detected_trees.png"  # Save the detection output
+
+        # Save the image with detection results
+        output_folder = "static/results/"
+        os.makedirs(output_folder, exist_ok=True)
+        output_path = os.path.join(output_folder, "detected_trees.png")
+        
         plt.savefig(output_path)
         plt.close()
 
@@ -39,3 +51,4 @@ def detect_trees(file):
 
     except Exception as e:
         return f"Error during tree detection: {e}"
+
