@@ -1,36 +1,48 @@
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 import os
+import shutil
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
-UPLOAD_FOLDER = 'static/uploads/'
+# Using Vercel's temporary directory for uploads
+UPLOAD_FOLDER = '/tmp/uploads/'
 RESULTS_FOLDER = 'static/results/'
+
+# Ensure that the results folder exists
+os.makedirs(RESULTS_FOLDER, exist_ok=True)
+
+# Allowed file extensions for image upload
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['RESULTS_FOLDER'] = RESULTS_FOLDER
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(RESULTS_FOLDER, exist_ok=True)
-
+# Function to check allowed file extensions
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
+# Simulated tree detection (replace with actual processing logic)
 def detect_trees(image_path):
-    # Replace with your actual tree detection logic
+    # Simulate processing by copying the uploaded image to a new result
     result_image_path = os.path.join(RESULTS_FOLDER, "detected_trees.png")
-    # Assuming you process the image and save the result here
+    
+    # For now, we'll just copy the file (replace with real detection logic)
+    shutil.copy(image_path, result_image_path)
+    
     return result_image_path
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     result = None
     image_path = None
+
     if request.method == 'POST':
         file = request.files['image']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+            # Save the file temporarily
             file.save(file_path)
 
             try:
@@ -38,7 +50,7 @@ def home():
                 result_image_path = detect_trees(file_path)
                 print(f"Result: {result_image_path}")
 
-                # After processing, you can set the path to the generated result image
+                # After processing, set the path to the result image
                 image_path = f"/static/results/{os.path.basename(result_image_path)}"
 
                 # Optional: Clean up the uploaded image after processing
