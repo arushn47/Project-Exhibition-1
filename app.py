@@ -6,15 +6,16 @@ import shutil
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
-UPLOAD_FOLDER = 'static/images/uploads/'
-RESULTS_FOLDER = 'static/images/results/exp'
-YOLO_SCRIPT = 'yolo/detect.py'
-ARCHIVE_FOLDER = 'static/images/archive'
+UPLOAD_FOLDER = '/tmp/uploads/'
+RESULTS_FOLDER = '/tmp/results/exp'
+ARCHIVE_FOLDER = '/tmp/archive'
+YOLO_SCRIPT = 'yolo/detect.py'  # Relative path to detect.py
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['RESULTS_FOLDER'] = RESULTS_FOLDER
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
+# Create writable directories in /tmp
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULTS_FOLDER, exist_ok=True)
 os.makedirs(ARCHIVE_FOLDER, exist_ok=True)
@@ -39,8 +40,8 @@ def home():
                 archive_file_path = os.path.join(ARCHIVE_FOLDER, filename)
                 shutil.move(file_path, archive_file_path)
 
-                result_image_path = os.path.join(RESULTS_FOLDER, 'exp', filename)
-                image_path = f"images/results/exp/{filename}"
+                result_image_path = os.path.join(RESULTS_FOLDER, filename)
+                image_path = f"/tmp/results/exp/{filename}"
 
                 return redirect(url_for('result', image_path=image_path))
 
