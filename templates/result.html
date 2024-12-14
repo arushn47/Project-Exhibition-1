@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,7 +92,13 @@
             gap: 5vmin;
             height: 100vh;
         }
-        
+
+        .result-img {
+            display: flex;
+            align-items: center;
+            gap: 5vmin;
+        }
+
         .result-img img {
             height: 60vmin;
         }
@@ -131,28 +138,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 </head>
+
 <body>
-    
+
     <header id="header">
         <div class="logo"><a href="{{ url_for('home') }}">Sustain Hub</a></div>
         <nav>
             <ul class="nav-links">
                 <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="{{ url_for('home') }}#features">Features</a></li>
+                <li><a href="{{ url_for('home') }}#about">About Us</a></li>
+                <li><a href="{{ url_for('home') }}#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
-    
+
     <section id="results">
         <h1 class="heading">Tree Detection Result</h1>
         <div class="result-img">
-        {% if image_path %}
-        <img src="{{ url_for('static', filename=image_path) }}" alt="Detected Trees">
-        {% else %}
+            {% if image_path %}
+            <img src="{{ url_for('static', filename=image_path) }}" alt="Detected Trees">
+            {% else %}
             <p>No result image available.</p>
-        {% endif %}
+            {% endif %}
+            <h3>Number of trees detected: {{ tree_count }}</h3>
         </div>
         <a href="{{ url_for('home') }}">Go Back to Upload</a>
     </section>
@@ -179,4 +188,5 @@
         };
     </script>
 </body>
+
 </html>

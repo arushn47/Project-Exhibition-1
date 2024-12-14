@@ -135,15 +135,22 @@
         .feature-container {
             display: flex;
             justify-content: space-around;
-            margin-top: 5vmin;
+            margin: 5vmin 0;
         }
 
-        .feature {
+        .feature-card {
             background-color: #eeddb7;
-            padding: 2vmin;
-            width: 30%;
+            width: 350px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: 0.3s ease;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-card:hover {
+            transform: rotateZ(1deg);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         /* upload */
@@ -351,15 +358,15 @@
     <section id="features">
         <h2 class="heading">Our Features</h2>
         <div class="feature-container">
-            <div class="feature">
+            <div class="feature-card">
                 <h3>High Accuracy</h3>
                 <p>Our algorithms provide precise tree counting and detection in Urban.</p>
             </div>
-            <div class="feature">
+            <div class="feature-card">
                 <h3>Real-time Analysis</h3>
                 <p>Get tree data instantly through satellite or drone input.</p>
             </div>
-            <div class="feature">
+            <div class="feature-card">
                 <h3>Custom Reports</h3>
                 <p>Generate detailed reports based on the area of interest.</p>
             </div>
